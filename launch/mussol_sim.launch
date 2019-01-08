@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>   
+  <!-- Start Gazebo with wg world running in (max) realtime -->
+   <include file="$(find hku_m100_gazebo)/launch/start.launch">
+      <arg name="world" value="$(find hku_m100_gazebo)/worlds/mussol_sim.world"/>
+   </include>
+
+   <!-- Convert xacro and put on parameter server -->
+   <param name="robot_description" command="xacro --inorder '$(find hku_m100_description)/urdf/hku_m100.urdf.xacro'" />
+
+   <!-- Spawn a robot into Gazebo -->
+   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model hku_m100" />
+</launch>
